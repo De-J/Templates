@@ -1,15 +1,68 @@
-import newRequest from "@/utils/newRequest";
-import { useEffect, useMemo } from "react";
 import { useTable, usePagination } from "react-table";
+import { useState, useMemo, useEffect } from "react";
+import newRequest from "@/utils/newRequest"
 
-export default function Table(props) {
+const query = [
+    {
+        id: 1,
+        name: "Query1"
+    },
+    {
+        id: 2,
+        name: "Query2"
+    },
+    {
+        id: 3,
+        name: "Query3"
+    },
+    {
+        id: 4,
+        name: "Query4"
+    },
+    {
+        id: 5,
+        name: "Query5"
+    }
+]
 
-    // const query = useQuery({
-    //     queryKey: ["Users"]
-    // })
 
+export default function Query1() {
+    const [data, setData] = useState([])
+    const [queryNo, setQueryNo] = useState(1);
 
-    const data = useMemo(() => fakedata, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            let url = `/query${queryNo}?`
+            switch (queryNo) {
+                case 1: {
+                    url += "car=BMW,Mercedes&i_max=5"
+                    break;
+                }
+                case 2: {
+                    url += "gender=Male&p_max=10000"
+                    break;
+                }
+                case 3: {
+                    url += "last_name=/^M/"
+                    break;
+                }
+                case 4: {
+                    url += "car=BMW,Mercedes,Audi&email=/^[^0-9]%2b$/"
+                    break;
+                }
+                case 5: {
+                    url += ""
+                    break;
+                }
+            }
+            const res = await newRequest.get(url)
+            if (res.data.length !== 0)
+                setData(res.data)
+            else setData([])
+        }
+        fetchData();
+    }, [queryNo])
+
 
     const columns = useMemo(() => [
         {
@@ -55,42 +108,41 @@ export default function Table(props) {
     ], []
     )
 
-    // function Table({
-    //     columns,
-    //     data,
-    //     fetchData,
-    //     loading,
-    //     pageCount: controlledPageCount
-    // }) {
-        const {
-            getTableProps,
-            getTableBodyProps,
-            headerGroups,
-            page,
-            pageOptions,
-            nextPage,
-            canNextPage,
-            previousPage,
-            canPreviousPage,
-            prepareRow,
-            state: { pageIndex, pageSize },
-        } = useTable(
-            {
-                columns,
-                data,
-                // initialState: { pageIndex: 0 },
-                // manualPagination: true,
-                // pageCount: controlledPageCount
-            },
-            usePagination
-        )
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        page,
+        pageOptions,
+        nextPage,
+        canNextPage,
+        previousPage,
+        canPreviousPage,
+        prepareRow,
+        state: { pageIndex, pageSize },
+    } = useTable(
+        {
+            columns,
+            data,
+            // initialState: { pageIndex: 0 },
+            // manualPagination: true,
+            // pageCount: controlledPageCount
+        },
+        usePagination
+    )
 
-        useEffect(() => {
-            console.log(pageIndex, pageSize);
-            newRequest.get(`/query?idx=${pageIndex}&size=${pageSize}`)
-        }, [])
-
-        return (
+    return (
+        <>
+            <div className="flex justify-center">
+                {query.map(ele =>
+                    <button
+                        id={ele.id}
+                        className="border border-black rounded-md p-1 mx-1 my-6"
+                        onClick={() => setQueryNo(ele.id)}>
+                        {ele.name}
+                    </button>
+                )}
+            </div>
             <div>
                 <table {...getTableBodyProps()}>
                     <thead>
@@ -130,6 +182,6 @@ export default function Table(props) {
                     <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
                 </div>
             </div>
-        )
-    }
-// }
+        </>
+    )
+}
