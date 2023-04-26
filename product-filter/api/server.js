@@ -19,7 +19,7 @@ app.use(cors(
     },
 ));
 
-app.use("/get", userRoute);
+app.use("/api", userRoute);
 
 const PORT = process.env.PORT || 9000;
 mongoose

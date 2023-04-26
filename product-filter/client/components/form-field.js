@@ -1,4 +1,4 @@
-const Field = (props) => {
+export default function Field(props) {
   const { label, ...inputTagAttr } = props;
 
   return (
@@ -12,5 +12,3 @@ const Field = (props) => {
     </div>
   );
 };
-
-export default Field;

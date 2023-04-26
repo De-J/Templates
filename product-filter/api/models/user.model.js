@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+    id: {
+        type: Number,
+        required: true
+    },
     first_name: {
         type: String,
         required: true
@@ -19,7 +23,7 @@ const userSchema = new Schema({
         required: true
     },
     income: {
-        type: String,
+        type: Number,
         required: true
     },
     city: {
@@ -35,10 +39,10 @@ const userSchema = new Schema({
         required: true
     },
     phone_price: {
-        type: String,
+        type: Number,
         required: true
     }
-}, { collection: "sample_data" }
+}, { collection: "corrected_data" }
 );
 
 export default mongoose.model("User", userSchema)
