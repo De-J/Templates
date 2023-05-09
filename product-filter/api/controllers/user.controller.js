@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import { destructure } from "../utils/utilities.js";
+import { collection } from "../utils/mongo.js";
 
 export const getUsers = async (req, res) => {
     try {
@@ -23,15 +24,15 @@ export const queryUsers = async (req, res) => {
         const query = {}
         for (let key in params) {
             if (params[key] !== '')
-                query[key] = { $regex : params[key] }  
+                query[key] = { $regex: params[key] }
         }
         (min != '') && (query.income = { $gte: parseFloat(min) })
-        
-        
+
+
         console.log(query);
         const arr = await User.find(query);
         // console.log(arr);
-        
+
         res.status(200).send(arr);
     }
     catch (err) {
@@ -40,15 +41,18 @@ export const queryUsers = async (req, res) => {
     }
 }
 
+
 export const query1 = async (req, res) => {
     try {
-        const key = Object.keys(req.query)[0],
-        query = destructure(key, req.query.car, true);
-        query.income = { $lt: parseFloat(req.query.i_max) }
-        const arr = await User.find(query)
+        // const query = { $text: { $search: req.query.car } };
+        // query.income = { $lt: parseFloat(req.query.i_max) }
+        const pipeline = []
+
+        const cursor = collection.aggregate(pipeline);
+        const arr = await cursor.toArray();
         res.status(200).send(arr);
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send()
         console.log(err);
     }
@@ -58,15 +62,17 @@ export const query1 = async (req, res) => {
 export const query2 = async (req, res) => {
     try {
         const key = Object.keys(req.query)[0],
-        query = destructure(key, req.query.gender);
+            query = destructure(key, req.query.gender);
         console.log(key);
+        const query = {}
+
         query.phone_price = { $gt: parseFloat(req.query.p_max) }
         const arr = await User.find(query)
         res.status(200).send(arr);
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send()
-        console.log(err);    
+        console.log(err);
     }
 }
 
@@ -79,28 +85,28 @@ export const query3 = async (req, res) => {
         // console.log(query);
         res.status(200).send();
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send()
         console.log(err);
-        
+
     }
 }
 
 export const query4 = async (req, res) => {
     try {
         const key = Object.keys(req.query)[0],
-        query = destructure(key, req.query.car, true);
-        
+            query = destructure(key, req.query.car, true);
+
         query.email = { $regex: req.query.email }
         console.log(query);
         const arr = await User.find(query)
         console.log(arr)
         res.status(200).send(arr);
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send()
         console.log(err);
-        
+
     }
 }
 
@@ -112,9 +118,9 @@ export const query5 = async (req, res) => {
         // console.log(query);
         res.status(200).send();
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send()
         console.log(err);
-        
+
     }
 }
