@@ -35,7 +35,7 @@ export default function Query1() {
             let url = `/query${queryNo}?`
             switch (queryNo) {
                 case 1: {
-                    url += "car=BMW,Mercedes&i_max=5"
+                    url += "car=BMW Mercedes&i_max=5"
                     break;
                 }
                 case 2: {
@@ -43,7 +43,7 @@ export default function Query1() {
                     break;
                 }
                 case 3: {
-                    url += "last_name=/^M/"
+                    url += "last_name="
                     break;
                 }
                 case 4: {
