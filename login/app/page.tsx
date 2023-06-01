@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function Home() {
   return (
-    <main className="flex justify-between font-poppins">
+    <main className="flex justify-between">
       <div className="rect">
         <Image className="logo" src="/exo.svg" alt="logo" height="22" width="64" />
         <div className="image-main">
