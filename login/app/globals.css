@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+main {
+    height: 100vh;
+}
+
+.rect  {
+    position: relative;
+    margin: 1.25rem;
+    background-image: url("../public/Rectangle\ 15.jpg");
+    width: 620px;
+    height: 555px;
+    color: #ffffff;
+}
+
+.rect .logo {
+    position: absolute;
+    top: 27px;
+    left: 20px;
+}
+
+.rect h1 {
+    font-weight: 700;
+}
+
+.rect img {
+    display: inline;
+}
+
+.image-main img {
+    position: relative;
+    bottom: 4px;
+}
+
+.image-main {
+    position: absolute;
+    top: 270px;
+    left: 20px;
+}
+
+.image-main p {
+    font-size: 28px;
+    color: #bfbfbf;
+}
+
+.slider-icon {
+    position: absolute;
+    top: 426px;
+    left: 20px;
+}
+
+.slider-icon img {
+    margin-left: 4px;
+}
+
+.bottom {
+    width: 580px;
+    color: #bfbfbf;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 511px;
+    left: 20px;
+}
+
+.bottom .left {
+    display: flex;
+    font-size: 12px;
+}
+
+.social {
+    display: flex;
+}
+
+.social svg {
+    margin-left: 10px;
+}
+
+.social path {
+    fill: white;
+
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.heading span {
+    color : #08A593;
+}
+
+.heading img {
+    margin: auto;
+}
+
+.heading p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #667085;
+}
+
+form {
+    margin: auto;
+    width: 360px;
+    min-width: 360px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+}
+
+.password input {
+    margin: 0;
+}
+
+.password button {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    color: #667085;
+    position: relative;
+    left: 70%;
+    top: 20%;
+}
+
+input {
+    border: 1px solid #464660;
+    background: none;
+    font-family: inherit;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.375rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+.sign-up {
+    margin-top: 4.75rem;
+    text-align: center;
+    font-size: 14px;
+}
+
+.sign-up span {
+    color : #08A593;
+}
+
+.btn-log-in {
+    color: white;
+    background-color: #020100;
+    cursor: pointer;
+    border: none;
+    margin-top: 3.75rem;
+    margin-bottom: 0.25rem;
+    box-shadow: 0px 20px 32px rgba(2, 1, 0, 0.42);
+}
