@@ -4,11 +4,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+@media screen and (max-width: 1200px) {
+    .rect {
+        display: none;
+    }
+}
+
 main {
     height: 100vh;
 }
 
-.rect  {
+.rect {
     position: relative;
     margin: 1.25rem;
     background-image: url("../public/Rectangle\ 15.jpg");
@@ -97,7 +103,7 @@ h1 {
 }
 
 .heading span {
-    color : #08A593;
+    color: #08A593;
 }
 
 .heading img {
@@ -156,7 +162,7 @@ input:focus {
 }
 
 .sign-up span {
-    color : #08A593;
+    color: #08A593;
 }
 
 .btn-log-in {
