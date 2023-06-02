@@ -1,6 +1,32 @@
+"use client";
 import Image from "next/image"
+import React, { useState } from "react";
+import {
+  Formik,
+  FormikErrors
+} from "formik";
+
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 export default function Home() {
+  const [values, setValues] = useState<FormValues>({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setValues((prevUser) => ({ ...prevUser, [name]: value }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(values);
+  };
+
   return (
     <main className="flex justify-between">
       <div className="rect">
@@ -31,28 +57,74 @@ export default function Home() {
 
       </div>
 
-      <form>
-        <div className="heading">
-          <Image src="/petals.svg" alt="logo" width="61" height="49" />
-          <h1>Welcome <span>Back!</span></h1>
-          <p>Glad to see you, Again!</p>
-        </div>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validate={(values: FormValues) => {
+          const errors: FormikErrors<FormValues> = {};
+          if (!values.email) {
+            errors.email = "Required";
+          }
+          if (!values.password) {
+            errors.password = "Required";
+          }
+          else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+            errors.email = "Invalid email address";
+          }
+          if (!/^.{5,8}$/.test(values.password)) {
+            errors.password = "Between 5-8 characters";
+          }
+          return errors;
+        }}
+        onSubmit={(values: FormValues, { setSubmitting }) => {
+          setSubmitting(false)
+        }}>
 
-        <input
-          type="text"
-          placeholder="Enter your email" />
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleSubmit,
+          isSubmitting,
+        }) => (
 
-        <div className="password">
-          <input
-            type="password"
-            placeholder="Enter your password" />
-          <button>Forgot Password</button>
-        </div>
+          <form onSubmit={handleSubmit}>
+            <div className="heading">
+              <Image src="/petals.svg" alt="logo" width="61" height="49" />
+              <h1>Welcome <span>Back!</span></h1>
+              <p>Glad to see you, Again!</p>
+            </div>
 
-        <input className="btn-log-in" type="submit" value="Log In" />
+            <div className="email">
+            <input
+              type="text"
+              placeholder="Enter your email"
+              name="email"
+              value={values.email}
+              onChange={handleChange} />
+              
+              <span className="error ml-1 text-xs text-red-500">{errors.email && touched.email && errors.email}</span>
+            </div>
 
-        <p className="sign-up">Don't have an account yet? <span>Sign Up</span></p>
-      </form>
+            <div className="password">
+              <input
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                value={values.password}
+                onChange={handleChange} />
+                
+                <span className="error ml-1 text-xs text-red-500">{errors.password && touched.password && errors.password}</span>
+
+              <button>Forgot Password</button>
+            </div>
+
+            <input className="btn-log-in" type="submit" value="Log In" disabled={isSubmitting}/>
+
+            <p className="sign-up">Don't have an account yet? <span>Sign Up</span></p>
+          </form>
+        )}
+      </Formik>
     </main>
   )
 }
