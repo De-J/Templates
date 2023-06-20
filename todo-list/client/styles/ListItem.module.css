@@ -1,0 +1,8 @@
+.item {
+    border: 1px solid red;
+    display: flex;
+}
+
+.item p {
+    margin-left: 10px;
+}
