@@ -6,17 +6,19 @@ const ListItem: FC<{task: string}> = ({ task }) => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
     
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        
+        // add api call here
         setIsChecked(event.target.checked);
     }
     
     return (
-        <div className={styles.item}>
+        <div className={`${styles.item} ${isChecked && styles.crossed}`}>
             <input 
-                type='checkbox' 
+                type="checkbox" 
                 checked={isChecked}
                 onChange={handleChange}/>
-            <p>{task}</p>
+            <p 
+                placeholder="E.g. Buy groceries" 
+                contentEditable="true">{task}</p>
         </div>
     )
 }
