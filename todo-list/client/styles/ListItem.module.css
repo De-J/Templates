@@ -4,5 +4,19 @@
 }
 
 .item p {
-    margin-left: 10px;
+    min-width: 20px;
+    outline: none;
+}
+
+/* .item p:empty::after {
+    content: attr(placeholder);
+} */
+
+.item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.crossed {
+    text-decoration: line-through;
+    color: grey;
 }
